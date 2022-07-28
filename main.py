@@ -1,17 +1,17 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    for i in range(5):
-        print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+from EmployeeFile import Employee
+import pytest
+import requests
+def test_method():
+    pageNumber = 1
+    URL = "https://reqres.in/api/users?page="
+    data = requests.get(URL + str(pageNumber)).json()
+    total = data["total"]
+    dataList = []
+    while data["data"]:
+        for i in range(len(data["data"])):
+            dataList.append(Employee(int(data["data"][i]["id"]), data["data"][i]["email"],
+                                     data["data"][i]["first_name"], data["data"][i]["last_name"],
+                                     data["data"][i]["avatar"]))
+        pageNumber = pageNumber + 1
+        data = requests.get(URL + str(pageNumber)).json()
+    assert len(dataList) == total, "there is a bug in your method"
