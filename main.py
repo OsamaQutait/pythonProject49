@@ -14,4 +14,4 @@ def test_method():
                                      data["data"][i]["avatar"]))
         pageNumber = pageNumber + 1
         data = requests.get(URL + str(pageNumber)).json()
-    assert len(dataList) == total+1, "there is a bug in your method"
+    assert len(dataList) == total, "there is a bug in your method"
