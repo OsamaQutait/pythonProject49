@@ -1,7 +1,7 @@
 from EmployeeFile import Employee
 import pytest
 import requests
-def test_method():
+def test_validate_total_number_with_returned_data():
     pageNumber = 1
     URL = "https://reqres.in/api/users?page="
     data = requests.get(URL + str(pageNumber)).json()
@@ -15,3 +15,9 @@ def test_method():
         pageNumber = pageNumber + 1
         data = requests.get(URL + str(pageNumber)).json()
     assert len(dataList) == total, "there is a bug in your method"
+def testPostUser():
+    URL = "https://reqres.in/api/users"
+    addUser = requests.post(URL).json()
+    getSingleUserURL = "https://reqres.in/api/users/"+str(addUser["id"])
+    response = requests.get(getSingleUserURL).status_code
+    assert response != 404, "the post operation fail"
