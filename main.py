@@ -16,8 +16,17 @@ def test_validate_total_number_with_returned_data():
         data = requests.get(URL + str(pageNumber)).json()
     assert len(dataList) == total, "there is a bug in your method"
 def testPostUser():
+    data = {
+            "name": "morpheus",
+            "job": "leader",
+            "id": "358",
+            "createdAt": "2022-07-28T12:21:17.582Z"
+            }
     URL = "https://reqres.in/api/users"
-    addUser = requests.post(URL).json()
-    getSingleUserURL = "https://reqres.in/api/users/"+str(addUser["id"])
+    response = requests.post(URL, data).status_code
+    assert response == 201, "operation create failed"
+# check respinse 201
+# check name exists in response
+    getSingleUserURL = "https://reqres.in/api/users/"+data["id"]
     response = requests.get(getSingleUserURL).status_code
     assert response != 404, "the post operation fail"
