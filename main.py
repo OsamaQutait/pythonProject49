@@ -50,9 +50,7 @@ def testPutUser():
             }
     URL = "https://reqres.in/api/users/2"
     response = requests.put(URL, data)
-    print(response.json())
     responseFromGetRequest = requests.get(URL).json()["data"]
-    print(responseFromGetRequest)
     assert data["id"] == responseFromGetRequest["id"] and data["first_name"] == responseFromGetRequest["first_name"], "operation update failed"
     assert response == 200, "operation update failed"
     assert response != 204, "client doesn't need to navigate away from its current page"
