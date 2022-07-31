@@ -31,3 +31,23 @@ def testPostUser():
     getSingleUserURL = "https://reqres.in/api/users/"+data["id"]
     response = requests.get(getSingleUserURL).status_code
     assert response != 404, "the post operation fail"
+
+
+def testDeleteUser():
+    URL = "https://reqres.in/api/users/2"
+    response = requests.delete(URL).status_code
+    assert response != 204, "client doesn't need to navigate away from its current page"
+    assert response != 400, "bad request"
+    assert response == 200, "operation delete failed"
+
+def testPutUser():
+    data = {"name": "morpheus",
+            "job": "zion resident"
+            }
+    URL = "https://reqres.in/api/users/2"
+    response = requests.put(URL, data).status_code
+    assert response == 200, "operation update failed"
+    assert response != 204, "client doesn't need to navigate away from its current page"
+    assert response != 400, "bad request"
+
+
