@@ -18,9 +18,7 @@ def test_validate_total_number_with_returned_data():
 def testPostUser():
     data = {
             "name": "morpheus",
-            "job": "leader",
             "id": "358",
-            "createdAt": "2022-07-28T12:21:17.582Z"
             }
     URL = "https://reqres.in/api/users"
     response = requests.post(URL, data).status_code
