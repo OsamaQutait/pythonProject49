@@ -36,18 +36,25 @@ def testPostUser():
 def testDeleteUser():
     URL = "https://reqres.in/api/users/2"
     response = requests.delete(URL).status_code
+    responseFromGetRequest = requests.get(URL).status_code
+    assert responseFromGetRequest !=200, "operation delete failed"
     assert response != 204, "client doesn't need to navigate away from its current page"
     assert response != 400, "bad request"
     assert response == 200, "operation delete failed"
 
+
+
 def testPutUser():
-    data = {"name": "morpheus",
-            "job": "zion resident"
+    data = {"id": "65",
+            "first_name": "morpheus"
             }
     URL = "https://reqres.in/api/users/2"
-    response = requests.put(URL, data).status_code
+    response = requests.put(URL, data)
+    print(response.json())
+    responseFromGetRequest = requests.get(URL).json()["data"]
+    print(responseFromGetRequest)
+    assert data["id"] == responseFromGetRequest["id"] and data["first_name"] == responseFromGetRequest["first_name"], "operation update failed"
     assert response == 200, "operation update failed"
     assert response != 204, "client doesn't need to navigate away from its current page"
     assert response != 400, "bad request"
-
 
