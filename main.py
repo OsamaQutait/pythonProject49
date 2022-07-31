@@ -21,8 +21,11 @@ def testPostUser():
             "id": "358",
             }
     URL = "https://reqres.in/api/users"
-    response = requests.post(URL, data).status_code
-    assert response == 201, "operation create failed"
+    response = requests.post(URL, data)
+    getStatusCode = response.status_code
+    assert getStatusCode == 201, "operation create failed"
+    getName = response.json()
+    assert data["name"] == getName["name"], "there is a problem with sending data"
 # check respinse 201
 # check name exists in response
     getSingleUserURL = "https://reqres.in/api/users/"+data["id"]
